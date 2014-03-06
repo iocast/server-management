@@ -1,0 +1,46 @@
+{
+	"general": {
+		"local": "R:",
+		"user": "Administrator",
+		"group": "Administrators",
+		"permissions": ["SYSTEM"]
+	},
+	"shares": [
+		{
+			"folder": "projects",
+			"name": "Projects",
+			"acls" : [
+				{
+					"owner": "D\\group-admins",
+					"access": "Allow",
+					"acl": "FullControl, Synchronize",
+					"share": "Full"
+				},
+				{
+					"owner": "D\\group-employees",
+					"access": "Allow",
+					"acl": "Modify, Synchronize",
+					"share": "Change"
+				}
+			],
+			"ownership": true,
+			"smb": true,
+			"acl": true
+		},
+		{
+			"folder": "other_folder",
+			"name": "Other Folder",
+			"acls" : [
+				{
+					"owner": "D\\group-admins",
+					"access": "Allow",
+					"acl": "FullControl, Synchronize",
+					"share": "Full"
+				}
+			],
+			"ownership": true,
+			"smb": true,
+			"acl": true
+		}
+	]
+}

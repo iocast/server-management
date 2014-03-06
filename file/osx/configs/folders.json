@@ -1,0 +1,17 @@
+{
+	"source": "/base/path",
+	"folders": [
+		{ "folder": "folder_inside_source", "depth": 0 },
+		{ "folder": "path/inside/path", "depth": 1 }
+	],
+	"subfolders": [
+		{
+			"parent": "folder_inside_source",
+			"folders": [
+				{ "folder": "projects", "depth": 1 },
+				{ "folder": "software", "depth": 0 }
+			]
+		}
+	]
+}
+

@@ -1,0 +1,21 @@
+{
+	"rights": {
+		"user": "Administrator",
+		"group": "Administrators",
+		"permissions": ["SYSTEM"],
+		"acls" : [
+			{
+				"owner": "D\\group-employees",
+				"access": "Allow",
+				"acl": "ReadAndExecute, Synchronize"
+			}
+		],
+		"acl": false
+	},
+	"datasource" : {
+		"group": "group-employees",
+		"user": "ad_user",
+		"home": "R:\\people",
+		"archive": "R:\\archive\\people"
+	}
+}

@@ -1,0 +1,54 @@
+{
+	"source": {
+		"uri": "<server>:/<path>",
+		"user": "root"
+	},
+	"destination": {
+		"uri": "/<path>",
+		"user": "root",
+		"group": "staff",
+		"modus": {
+			"rsync": "Du=rwx,Dg=,Do=,Fu=rwx,Fg=,Fo=",
+			"chmod": "0700"
+		}
+	},
+	"rsa": "/<path-to-private-rsa-key>",
+	"log": "./<log-prefix>",
+	"shares": [
+		{
+			"folder": "test_folder",
+			"name": "test",
+			"acls" : [
+				{
+					"owner": "group:D\\group-admin",
+					"access": "allow",
+					"permission": "readattr,writeattr,readextattr,writeextattr,readsecurity,writesecurity,list,search,add_file,add_subdirectory,delete_child,read,write,append,execute,file_inherit,directory_inherit,chown"
+				},
+				{
+					"owner": "group:D\\group-employees",
+					"access": "allow",
+					"permission": "readattr,readextattr,readsecurity,list,search,add_file,add_subdirectory,read,file_inherit,directory_inherit"
+				}
+			],
+			"sync": true,
+			"posix": true,
+			"share": true,
+			"acl": true
+		},
+		{
+			"folder": "other_folder",
+			"name": "",
+			"acls" : [
+				{
+					"owner": "group:D\\group-employees",
+					"access": "allow",
+					"permission": "readattr,writeattr,readextattr,writeextattr,readsecurity,writesecurity,list,search,add_file,add_subdirectory,delete_child,read,write,append,execute,file_inherit,directory_inherit,chown"
+				}
+			],
+			"sync": true,
+			"posix": true,
+			"share": true,
+			"acl": true
+		}
+	]
+}

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>iocast.network.share.active-directory</string>
+	<key>StandardOutPath</key>
+	<string>active-directory-network-share.log</string>
+	<key>StandardErrorPath</key>
+	<string>active-directory-network-share-error.log</string>
+	<key>UserName</key>
+	<string>root</string>
+	<key>WorkingDirectory</key>
+	<string>/opt/file-server-management</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/bin/bash</string>
+		<string>./user_network_share.sh</string>
+		<string>--config</string>
+		<string>configs/network_share.json</string>
+	</array>
+	<key>StartInterval</key>
+	<real>3600</real>
+	<key>Debug</key>
+	<false/>
+	<key>AbandonProcessGroup</key>
+	<true/>
+</dict>
+</plist>

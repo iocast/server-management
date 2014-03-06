@@ -1,0 +1,21 @@
+{
+	"datasource" : {
+		"credentials": {
+			"username": "ad_user",
+			"password": "ad_password"
+		},
+		"path": "/Active Directory/D/All Domains",
+		"group": "employee-group",
+		"home": "/home/",
+		"archive": "/media/archive/"
+	},
+	"posix": {
+		"username": "root",
+		"group": "root",
+		"modus": "0700",
+	},
+	"propagation": {
+		"posix": true,
+		"acl": true
+	}
+}
