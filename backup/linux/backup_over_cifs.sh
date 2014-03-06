@@ -27,7 +27,7 @@ LICENSE
 VERSION=0.1
 AUTHOR="iocast"
 MAIL="iocast@me.com"
-INITIALIZATION="$0 initialize --node server.exmaple.com"
+INITIALIZATION="$0 initialize --destination server.exmaple.com"
 USAGE="$0 backup --node server.exmaple.com"
 
 
@@ -36,9 +36,9 @@ cat <<- EOF
 usage: $0 [initialize|backup] [OPTIONS]
 
 OPTIONS:
--n | --node           NODE        runs/initializes a node
--h | --help                       help text
-     --version                    prints the version information
+-d | --destination    DESTINATION        to server to which you want to backup
+-h | --help                              help text
+     --version                           prints the version information
 
 EXAMPLE:
 $USAGE
@@ -48,10 +48,10 @@ This script should be run as root because it will mount network shares.
 
 Run $INITIALIZATION to initialize a configuration file called .smbcredentials_server.example.com which will be stored under the home directory of the current user. After this file has been created you can run the backup $USAGE. Note that you need to run the backup under the same user as the initialization script.
 
-To run in periodical, you can create a crontab entry, e.g. 5 min past 3 in the morning:
+To run in periodical, you can create a crontab entry, e.g. 5 min past 4 in the morning:
 
 # m h dom mon dow user  command
-5  3    * * *   root    /opt/backup_over_cifs.sh backup --node server.example.com
+5  4    * * *   root    /opt/backup_over_cifs.sh backup --node server.example.com
 
 EOF
 }
@@ -66,7 +66,7 @@ EOF
 
 
 TASK=
-NODE=
+DEST=
 
 i=0
 while (($#)); do
@@ -75,13 +75,13 @@ while (($#)); do
 	case $OPT in
 		--*)
 		case ${OPT:2} in
-			node) NODE="$1"; shift;;
+			destination) DEST="$1"; shift;;
 			version) version; exit 1;;
 			help) usage; exit 1;;
 		esac;;
 		-*)
 		case ${OPT:1} in
-			n) NODE="$1"; shift;;
+			d) DEST="$1"; shift;;
 			h) usage; exit 1;;
 		esac;;
 		*)
@@ -92,7 +92,7 @@ done
 
 
 if [ $TASK = "initialize" ]; then
-	read -p "Enter the share point on the node '$NODE': " -e sharepoint
+	read -p "Enter the share point on the destination '$DEST': " -e sharepoint
 	read -p "Enter the mount point: " -e mountpoint
 	read -p "Folders to backup: " -e folders
 	
@@ -101,27 +101,27 @@ if [ $TASK = "initialize" ]; then
 	read -p "Please enter the password for user '$username': " -s password
 	echo ""
 	
-	echo "creating password file at '$HOME/.smbcredentials_$NODE'"
+	echo "creating password file at '$HOME/.smbcredentials_$DEST'"
 	
-	echo "username=$username" > $HOME/.smbcredentials_$NODE
-	echo "password=$password" >> $HOME/.smbcredentials_$NODE
-	echo "sharepoint=$sharepoint" >> $HOME/.smbcredentials_$NODE
-	echo "mountpoint=$mountpoint" >> $HOME/.smbcredentials_$NODE
-	echo "folders=\"$folders\"" >> $HOME/.smbcredentials_$NODE
+	echo "username=$username" > $HOME/.smbcredentials_$DEST
+	echo "password=$password" >> $HOME/.smbcredentials_$DEST
+	echo "sharepoint=$sharepoint" >> $HOME/.smbcredentials_$DEST
+	echo "mountpoint=$mountpoint" >> $HOME/.smbcredentials_$DEST
+	echo "folders=\"$folders\"" >> $HOME/.smbcredentials_$DEST
 	
-	chmod 0600 $HOME/.smbcredentials_$NODE
+	chmod 0600 $HOME/.smbcredentials_$DEST
 	
 	exit 0
 fi
 
 if [ $TASK = "backup" ]; then
-	source $HOME/.smbcredentials_$NODE
+	source $HOME/.smbcredentials_$DEST
 	
 	if [ ! -d "$mountpoint" ]; then
 		mkdir -p $mountpoint
 	fi
 	
-	mount -t cifs -o credentials=$HOME/.smbcredentials_$NODE //$NODE$sharepoint $mountpoint
+	mount -t cifs -o credentials=$HOME/.smbcredentials_$DEST //$DEST$sharepoint $mountpoint
 	
 	if [ ! -d "$mountpoint/$(`hostname`)" ]; then
 		mkdir -p $mountpoint/$(hostname)
