@@ -51,7 +51,7 @@ Run $INITIALIZATION to initialize a configuration file called .smbcredentials_se
 To run in periodical, you can create a crontab entry, e.g. 5 min past 4 in the morning:
 
 # m h dom mon dow user  command
-5  4    * * *   root    /opt/backup_over_cifs.sh backup --node server.example.com
+5  4    * * *   root    /opt/backup_over_cifs.sh backup --destination server.example.com
 
 EOF
 }
