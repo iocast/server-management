@@ -28,7 +28,7 @@ VERSION=0.1
 AUTHOR="iocast"
 MAIL="iocast@me.com"
 INITIALIZATION="$0 initialize --destination server.exmaple.com"
-USAGE="$0 backup --node server.exmaple.com"
+USAGE="$0 backup --destination server.exmaple.com"
 
 
 usage() {
