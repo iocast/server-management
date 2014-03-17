@@ -117,4 +117,13 @@ foreach($key in $currentFolders.Keys) {
  
     foreach ($acl in $configuration.rights.acls) {
         $rule = New-Object System.Security.AccessControl.FileSystemAccessRule($acl.owner, $acl.acl, $InheritanceFlags, $PropagationFlags, $acl.access)
-        $archiv
+        $archivePerm.AddAccessRule($rule)
+    }
+
+
+    Write-Host "INFO: writing permissons to '$archive'"
+    Set-Acl $uncArchive $archivePerm
+    
+}
+
+Set-ExecutionPolicy -ExecutionPolicy $policy -Force
